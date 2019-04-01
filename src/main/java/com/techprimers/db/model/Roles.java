@@ -1,22 +1,29 @@
 package com.techprimers.db.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "role")
+
+
 public class Roles {
     @Id
-    @GeneratedValue
-    @Column(name = "id_role")
-    private Integer id_role;
-    @Column(name = "tip")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String tip;
 
-    public Integer getId_role() {
-        return id_role;
+    @ManyToMany(mappedBy = "roles")
+    private Set<Users> users;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTip() {
@@ -25,5 +32,13 @@ public class Roles {
 
     public void setTip(String tip) {
         this.tip = tip;
+    }
+
+    public Set<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<Users> users) {
+        this.users = users;
     }
 }

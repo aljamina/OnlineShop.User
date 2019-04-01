@@ -1,53 +1,77 @@
 package com.techprimers.db.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Transient;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
+@Table(name = "user")
 public class Users {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Integer id_korisnika;
-    @Column(name = "ime")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotNull
+    @Size(min=2, max=30)
     private String ime;
-    @Column(name = "prezime")
+    @Size(min=1, message = "Polje za prezime ne smije biti praznoo")
     private String prezime;
-    @Column(name = "role_id")
-    private Integer role_id;
+    private String email;
+    private String password;
 
 
-    public Users() {
+    @ManyToMany
+    private Set<Roles> roles;
+
+    public Long getId() {
+        return id;
     }
 
-    public Integer getId_korisnika() {
-        return id_korisnika;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String naziv) {
-        this.ime = ime;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPrezime() {
         return prezime;
     }
 
-    public void setPrezime(String kratki_tekst) {
+    public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
 
-    public Integer getRole_id() {
-        return role_id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
+
 }
