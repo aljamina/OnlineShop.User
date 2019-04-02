@@ -15,8 +15,8 @@ public class Roles {
 
     private String tip;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<Users> users;
+   // @OneToMany(targetEntity = Users.class, mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private Set<Users> users;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class Roles {
         this.tip = tip;
     }
 
-    public Set<Users> getUsers() {
+   /*public Set<Users> getUsers() {
         return users;
     }
 
     public void setUsers(Set<Users> users) {
         this.users = users;
-    }
+    }*/
 }

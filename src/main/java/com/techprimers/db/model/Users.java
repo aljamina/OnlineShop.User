@@ -24,8 +24,10 @@ public class Users {
     private String password;
 
 
-    @ManyToMany
-    private Set<Roles> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Roles role;
+
 
     public Long getId() {
         return id;
@@ -78,12 +80,19 @@ public class Users {
         this.password = newpassword;
     }
 
-    public Set<Roles> getRoles() {
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+   /* public Set<Roles> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
-    }
+    }*/
 
 }

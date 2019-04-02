@@ -5,6 +5,8 @@ import com.techprimers.db.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -42,11 +44,20 @@ public class UsersResource {
         returnvalue.setPrezime(users.getPrezime());
         returnvalue.setEmail(users.getEmail());
         returnvalue.setPassword(users.getPassword());
+        returnvalue.setRole(users.getRole());
 
-        usersRepository.save(users);
+
+        usersRepository.save(returnvalue);
         return  new ResponseEntity<Users>(returnvalue, HttpStatus.OK);
         }
+        @PostMapping("/update/{id}")
+        public String updateUser(@Valid @RequestBody Users user){
 
+        Users existing=usersRepository.findById(user.getId());
+        user.setRole(existing.getRole());
+        usersRepository.save(user);
+        return "Updated user";
+        }
     }
 
 
