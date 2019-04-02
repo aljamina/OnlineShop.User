@@ -1,6 +1,7 @@
 package com.techprimers.db.model;
 
 import org.springframework.data.annotation.Transient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -63,7 +64,18 @@ public class Users {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+
+      /*  if (salt) {
+            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        } else {
+            this.password = password;
+        }*/
+        BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+        String newpassword=passwordEncoder.encode(password);
+        System.out.println("Compare 1 "+passwordEncoder.matches("123",password));
+        System.out.println("Compare 2: "+passwordEncoder.matches("12345",password));
+
+        this.password = newpassword;
     }
 
     public Set<Roles> getRoles() {

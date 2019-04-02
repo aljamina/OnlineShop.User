@@ -43,6 +43,7 @@ public class UsersResource {
         returnvalue.setEmail(users.getEmail());
         returnvalue.setPassword(users.getPassword());
 
+        usersRepository.save(users);
         return  new ResponseEntity<Users>(returnvalue, HttpStatus.OK);
         }
 
