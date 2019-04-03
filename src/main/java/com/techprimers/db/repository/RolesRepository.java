@@ -7,4 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 public interface RolesRepository extends JpaRepository<Roles, Integer> {
+    Roles findByTip(String tip);
+    void deleteById(Long id);
+    Roles findById(Long id);
 }
