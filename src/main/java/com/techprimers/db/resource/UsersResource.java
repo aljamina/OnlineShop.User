@@ -1,5 +1,6 @@
 package com.techprimers.db.resource;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.techprimers.db.model.Users;
 import com.techprimers.db.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +26,24 @@ public class UsersResource {
     @Autowired
     UsersRepository usersRepository;
 
-        @GetMapping(value = "/all")
+        @GetMapping(value = "/")
     public List<Users> getAll() {
         return usersRepository.findAll();
     }
 
-    @GetMapping(value = "/getUser/{id}")
+    @GetMapping(value = "/{id}")
     public Users getUser(@PathVariable Long id){
 
       return usersRepository.findById(id);
 
     }
 
-    @PostMapping(value = "/load")
+   /* @PostMapping(value = "/load")
     public List<Users> persist(@Valid @RequestBody  final Users users, Errors errors) {
             usersRepository.save(users);
             return usersRepository.findAll();
-        }
-    @PostMapping(value = "/createUser")
+        }*/
+    @PostMapping(value = "/")
     public ResponseEntity<Users> createUser(@Valid @RequestBody Users user){
         Users registeredUser= usersRepository.findByEmail(user.getEmail());
         if(registeredUser!=null)  return  new ResponseEntity<Users>(user, HttpStatus.CONFLICT);
@@ -64,13 +65,16 @@ public class UsersResource {
         }
         return "Email ili password su pogrešno uneseni";
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public String updateUser(@PathVariable Long id, @Valid @RequestBody Users user){
         Users existing=usersRepository.findById(id);
         if (existing==null) {return "User doesn't exist";}
-        existing.setRole(user.getRole());
+        existing.setIme(user.getIme());
+        existing.setPrezime(user.getPrezime());
+        existing.setPassword(user.getPassword());
+        //user.setRole(existing.getRole());
         usersRepository.save(existing);
-        return "Updated user";
+        return  "Updated user";
     }
   /*  @PostMapping("/login")
     public Users login(@Valid @RequestBody ){
@@ -81,7 +85,7 @@ public class UsersResource {
         return "Updated user";
     }*/
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         System.out.println("USEEEEER IIIIIIIIIID"+id);
         if(usersRepository.findById(id)!=null){

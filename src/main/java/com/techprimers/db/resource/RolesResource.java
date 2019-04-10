@@ -19,19 +19,19 @@ public class RolesResource {
     @Autowired
     RolesRepository rolesRepository;
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/")
     public List<Roles> getAll() {
         return rolesRepository.findAll();
     }
 
-    @PostMapping(value = "/load")
+    @PostMapping(value = "/")
     public ResponseEntity<Roles> persist(@Valid @RequestBody final Roles role) {
         Roles registeredTip= rolesRepository.findByTip(role.getTip());
         if(registeredTip!=null)  return  new ResponseEntity<Roles>(role, HttpStatus.CONFLICT);
         rolesRepository.save(role);
         return  new ResponseEntity<Roles>(role, HttpStatus.OK);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         System.out.println("USEEEEER IIIIIIIIIID"+id);
         if(rolesRepository.findById(id)!=null){
