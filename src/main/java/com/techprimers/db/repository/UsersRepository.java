@@ -9,6 +9,8 @@ import java.util.Set;
 
 public interface UsersRepository extends JpaRepository<Users, Integer> {
     Users findById(Long id);
+
     void deleteById(Long id);
+
     Users findByEmail(String email);
 }

@@ -15,10 +15,10 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "Polje za tip uloge ne smije biti prazno")
-    @Size(min=2, max=30, message = "Polje za tip uloge treba sadržavati najmanje 2, a najviše 30 karaktera")
+    @Size(min = 2, max = 30, message = "Polje za tip uloge treba sadržavati najmanje 2, a najviše 30 karaktera")
     private String tip;
 
-   // @OneToMany(targetEntity = Users.class, mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @OneToMany(targetEntity = Users.class, mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     //private Set<Users> users;
 
     public Long getId() {
